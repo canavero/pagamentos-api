@@ -20,7 +20,8 @@ jobs:
           username: ${{ secrets.AWS_USER }}
           key: ${{ secrets.AWS_SSH_KEY }}
           source: "."
-          target: "/home/${{ secrets.AWS_USER }}/pagamentos-api"
+          target: "~/pagamentos-api"
+          rm: true
 
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v1.0.3
@@ -29,7 +30,7 @@ jobs:
           username: ${{ secrets.AWS_USER }}
           key: ${{ secrets.AWS_SSH_KEY }}
           script: |
-            cd /home/${{ secrets.AWS_USER }}/pagamentos-api
+            cd ~/pagamentos-api
             echo "POSTGRES_USER=${{ secrets.POSTGRES_USER }}" > .env
             echo "POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}" >> .env
             echo "POSTGRES_DB=${{ secrets.POSTGRES_DB }}" >> .env
